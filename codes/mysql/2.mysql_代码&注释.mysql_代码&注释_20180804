@@ -1,0 +1,326 @@
+//声明：以下为《MySQL核心技术手册（第二版）》的代码，我自己加了点注释，就当作笔记，省得以后再翻书；
+//目的：给书店的书列表分类；
+//结构：数据库bookstore；表books，authors；
+
+
+
+mysql> CREATE DATABASE bookstore;     //建立一个虚拟书店的数据库；
+Query OK, 1 row affected (0.36 sec)   //mysql返回；
+
+
+
+mysql> USE bookstore                  //从默认数据库切换到新数据库；
+Database changed                      //mysql返回（数据库已改变）；
+
+ 
+                             
+mysql> CREATE TABLE books (           //创建表books；
+    -> book_id INT,                   //book_id 每条记录的标识码，代表每本书，数据类型为INT；
+    -> title VARCHAR (50),            //可变长的字符类型，每列值的长度不能超过50；
+    -> author VARCHAR (50));          //可变长的字符类型，每列值的长度不能超过50；
+Query OK, 0 rows affected (0.13 sec)  //mysql返回；
+
+
+
+mysql> DESCRIBE books;                //查看表books;
++---------+-------------+------+-----+---------+-------+
+| Field   | Type        | Null | Key | Default | Extra |
++---------+-------------+------+-----+---------+-------+
+| book_id | int(11)     | YES  |     | NULL    |       |
+| title   | varchar(50) | YES  |     | NULL    |       |
+| author  | varchar(50) | YES  |     | NULL    |       |
++---------+-------------+------+-----+---------+-------+
+3 rows in set (0.03 sec)             //mysql返回（row：排；column： 列 ，没搞懂）；
+
+
+
+mysql> ALTER TABLE books             //修改编辑
+    -> CHANGE COLUMN book_id book_id INT AUTO_INCREMENT PRIMARY KEY,
+    -> CHANGE COLUMN author author_id INT,
+    -> ADD COLUMN description TEXT,
+    -> ADD COLUMN genre ENUM ("novel","poetry", "drama"),
+    -> ADD COLUMN publisher_id INT,
+    -> ADD COLUMN pub_year VARCHAR (4),
+    -> ADD COLUMN isbn VARCHAR (20);
+Query OK, 0 rows affected (0.14 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+
+
+mysql> DESCRIBE books;                //查看表books
++--------------+--------------------------------+------+-----+---------+----------------+
+| Field        | Type                           | Null | Key | Default | Extra          |
++--------------+--------------------------------+------+-----+---------+----------------+
+| book_id      | int(11)                        | NO   | PRI | NULL    | auto_increment |
+| title        | varchar(50)                    | YES  |     | NULL    |                |
+| author_id    | int(11)                        | YES  |     | NULL    |                |
+| description  | text                           | YES  |     | NULL    |                |
+| genre        | enum('novel','poetry','drama') | YES  |     | NULL    |                |
+| publisher_id | int(11)                        | YES  |     | NULL    |                |
+| pub_year     | varchar(4)                     | YES  |     | NULL    |                |
+| isbn         | varchar(20)                    | YES  |     | NULL    |                |
++--------------+--------------------------------+------+-----+---------+----------------+
+8 rows in set (0.00 sec)
+
+
+
+mysql> CREATE TABLE authors            //创建表authors
+    -> (author_id INT AUTO_INCREMENT PRIMARY KEY,
+    -> author_last VARCHAR(50),
+    -> author_first VARCHAR(50),
+    -> country VARCHAR(50));
+Query OK, 0 rows affected (0.07 sec)
+
+
+
+mysql> SHOW DATABASES;                 //获取数据库列表
++--------------------+
+| Database           |
++--------------------+
+| bookstore          |
+| information_schema |
+| mysql              |
+| performance_schema |
+| sys                |
++--------------------+
+5 rows in set (0.00 sec)
+
+
+
+mysql> SHOW TABLES;                    //获取表的列表（一共有几个表）
++---------------------+
+| Tables_in_bookstore |
++---------------------+
+| authors             |
+| books               |
++---------------------+
+2 rows in set (0.00 sec)
+
+
+
+mysql> SHOW TABLES FROM mysql;         //切换到其他数据库中的表（查看数据库mysql中的表）；
++---------------------------+
+| Tables_in_mysql           |
++---------------------------+
+| columns_priv              |
+| component                 |
+| db                        |
+| default_roles             |
+| engine_cost               |
+| func                      |
+| general_log               |
+| global_grants             |
+| gtid_executed             |
+| help_category             |
+| help_keyword              |
+| help_relation             |
+| help_topic                |
+| innodb_index_stats        |
+| innodb_table_stats        |
+| password_history          |
+| plugin                    |
+| procs_priv                |
+| proxies_priv              |
+| role_edges                |
+| server_cost               |
+| servers                   |
+| slave_master_info         |
+| slave_relay_log_info      |
+| slave_worker_info         |
+| slow_log                  |
+| tables_priv               |
+| time_zone                 |
+| time_zone_leap_second     |
+| time_zone_name            |
+| time_zone_transition      |
+| time_zone_transition_type |
+| user                      |
++---------------------------+
+33 rows in set (0.00 sec)
+
+
+
+mysql> USE bookstore;                //切换到bookstore数据库；
+Reading table information for completion of table and column names
+You can turn off this feature to get a quicker startup with -A
+
+Database changed
+
+
+
+mysql> INSERT INTO authors           //把作者信息加入到authors表中（梁实秋，中国）；
+    -> (author_last, author_first, country)      //姓，名，国籍；
+    -> VALUES ("Liang", "shiqiu", "China");
+Query OK, 1 row affected (0.11 sec)
+
+
+
+mysql> SELECT LAST_INSERT_ID ();     //从authors表中取出刚刚输入的记录的标识码；
+                                     //也可以使用 SELECT author_id FROM authors;
++-------------------+
+| LAST_INSERT_ID () |
++-------------------+
+|                 1 |
++-------------------+
+1 row in set (0.01 sec)
+
+
+
+mysql> INSERT INTO authors           //再添加一个作者信息（大江健三郎，日本）
+    -> (author_last, author_first, country)
+    -> VALUES ("oe", "kentaro", "Japan");
+Query OK, 1 row affected (0.08 sec)
+
+
+mysql> SELECT LAST_INSERT_ID ();     //搞个id；
++-------------------+
+| LAST_INSERT_ID () |
++-------------------+
+|                 2 |
++-------------------+
+1 row in set (0.00 sec)
+
+
+
+mysql> INSERT INTO books             //添加一本书（梁实秋的《秋事杂忆》，author_id见上，为1）
+    -> (title, author_id, isbn, genre, pub_year)
+    -> VALUES ("秋事杂忆", 1, "9787500847298","novel","2012”); //分类信息写错了，以后改，不是novel;
+Query OK, 1 row affected (0.09 sec)
+
+
+mysql> INSERT INTO books             //添加一本书（大江健三郎的《康复的家庭》，author_id见上，为2）
+    -> (title, author_id, isbn, genre, pub_year)
+    -> VALUES ("康复的家庭", 2, "9787530966198", "novel", "2012”);//分类信息写错了，以后改，不是novel;
+Query OK, 1 row affected (0.06 sec)
+
+
+
+mysql> SELECT*FROM books;           //查看表books的所有数据，“*”为”所有“的意思；
++---------+-----------------+-----------+-------------+-------+--------------+----------+---------------+
+| book_id | title           | author_id | description | genre | publisher_id | pub_year | isbn          |
++---------+-----------------+-----------+-------------+-------+--------------+----------+---------------+
+|       1 | 秋事杂忆        |         1 | NULL        | novel |         NULL | 2012     | 9787500847298 |
+|       2 | 康复的家庭      |         2 | NULL        | novel |         NULL | 2012     | 9787530966198 |
++---------+-----------------+-----------+-------------+-------+--------------+----------+---------------+
+2 rows in set (0.00 sec)
+
+
+
+mysql> mysql> title, pub_year        //查找isbn为9787500847298的书的书名和出版年份；
+    -> FROM books
+    -> WHERE isbn="9787500847298";
++--------------+----------+
+| title        | pub_year |
++--------------+----------+
+| 秋事杂忆     | 2012     |
++--------------+----------+
+1 row in set (0.00 sec)
+
+
+
+
+mysql> SELECT title,pub_year,        //把authors表和books表联系起来，联系的桥梁为author_id;
+    -> CONCAT (author_first, "", author_last) AS author
+    -> FROM books
+    -> JOIN authors USING (author_id)
+    -> WHERE author_last = "Liang";
++--------------+----------+-------------+
+| title        | pub_year | author      |
++--------------+----------+-------------+
+| 秋事杂忆     | 2012     | shiqiuLiang |
++--------------+----------+-------------+
+1 row in set (0.01 sec)
+
+
+
+
+mysql> SELECT*FROM books;            //看一下books表和authors表，没变化，是应该没变化；并没有author列，author是暂时的；
++---------+-----------------+-----------+-------------+-------+--------------+----------+---------------+
+| book_id | title           | author_id | description | genre | publisher_id | pub_year | isbn          |
++---------+-----------------+-----------+-------------+-------+--------------+----------+---------------+
+|       1 | 秋事杂忆        |         1 | NULL        | novel |         NULL | 2012     | 9787500847298 |
+|       2 | 康复的家庭      |         2 | NULL        | novel |         NULL | 2012     | 9787530966198 |
++---------+-----------------+-----------+-------------+-------+--------------+----------+---------------+
+2 rows in set (0.00 sec)
+
+mysql> SELECT*FROM authors;
++-----------+-------------+--------------+---------+
+| author_id | author_last | author_first | country |
++-----------+-------------+--------------+---------+
+|         1 | Liang       | shiqiu       | China   |
+|         2 | oe          | kentaro      | Japan   |
++-----------+-------------+--------------+---------+
+2 rows in set (0.00 sec)
+
+
+
+===================================到6%排序、限制与分组==============================================================
+//下次修改，要多添加几本书才能排序
+mysql> SELECT book_id, title, pub_year         
+    -> FROM books
+    -> JOIN authors USING (author_id)
+    -> WHERE author_last = "Liang"
+    -> AND country = "China"
+    -> ORDER BY title,pub_year;
++---------+--------------+----------+
+| book_id | title        | pub_year |
++---------+--------------+----------+
+|       1 | 秋事杂忆     | 2012     |
++---------+--------------+----------+
+1 row in set (0.00 sec)
+
+
+
+===================================MySQL 添加列，修改列，删除列========================================================
+
+mysql> DESC books;                 //查看列 DESC 表名；
++--------------+--------------------------------+------+-----+---------+----------------+
+| Field        | Type                           | Null | Key | Default | Extra          |
++--------------+--------------------------------+------+-----+---------+----------------+
+| book_id      | int(11)                        | NO   | PRI | NULL    | auto_increment |
+| title        | varchar(50)                    | YES  |     | NULL    |                |
+| author_id    | int(11)                        | YES  |     | NULL    |                |
+| description  | text                           | YES  |     | NULL    |                |
+| genre        | enum('novel','poetry','drama') | YES  |     | NULL    |                |
+| publisher_id | int(11)                        | YES  |     | NULL    |                |
+| pub_year     | varchar(4)                     | YES  |     | NULL    |                |
+| isbn         | varchar(20)                    | YES  |     | NULL    |                |
++--------------+--------------------------------+------+-----+---------+----------------+
+8 rows in set (0.00 sec)
+
+
+
+ALTER TABLE books MODIFY genre enum('novel','poetry','drama','essay','others'); //修改列属性；
+ALTER TABLE 表名 MODIFY 列名（Field名） Type内容； 
+
+ALTER TABLE books ADD COLUMN ilike enum('true','false');       //增加列 ilike，不能用like，重复，我喜欢这本书则为true，反之false；
+ALTER TABLE 表名 ADD COLUMN 列名（Field名） Type名；
+
+ALTER TABLE books ADD COLUMN DoubanPoints double(10,0);      //增加豆瓣评分Field，分数范围0-10，非整数,此处double错误，没有保留小数点一位；
+ALTER TABLE books modify DoubanPoints double(4,1);           //修改后还有错误，没大问题，double区间没搞懂；
+
+
+update books set DoubanPoints = 7.9                          //秋事杂忆豆瓣7.9分；
+    -> where book_id = 1;
+
+
+source /Users/apple/Desktop/mysqlcodes.sql;               //倒入sql代码文件；
+用命令行写太累了，刚刚手滑都不知道怎么撤销，现在用visual studio code写（记事本也行） //这个不行，会重复执行代码，试试ide；    
+不写了，基本的语法就这样了吧，反正不会的地方google一下都有的；
+
+
+
+**mysql笔记：**<br>
+     1.  book_id 不是 book-id;
+     2. 中文的符号不行，例如分号（；);
+     3. 一直是箭头 -> ，敲个分号，再回车就好了；
+    
+**mysql问题：**<br>   
+     1. row: 排；  column: 列  (没搞懂);
+     2. author_id INT AUTO_INCREMENT PRIMARY KEY;
+     3. information_schema,mysql,performance_schema,sys 这几个数据库（自带的？）;
+     4. double 设置豆瓣评分（0-10以内数字，小数点保留一位），不懂double（M，D）的M；
+     5. rollback回滚怎么用；
+
+     
+     
