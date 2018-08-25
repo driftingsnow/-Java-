@@ -1,3 +1,6 @@
+//reference: https://stackoverflow.com/questions/22352934/remove-duplicates-from-an-array-in-java
+//Solution0
+
 package leetcode;
 
 import java.util.Arrays;
