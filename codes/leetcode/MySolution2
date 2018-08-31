@@ -1,0 +1,59 @@
+//旋转数组
+//leetcode上运行出来的是[1,2,3,4,5,6,7]
+//eclipse上运行出来的是[5, 6, 7, 1, 2, 3, 4],正确。不知道怎么回事。
+package leetcode;
+
+import java.util.Arrays;
+
+public class MySolution2 {
+	
+	public int[] rotate(int[] nums, int k) {
+    	int n = nums.length - 1;
+    	int nums_new[] = new int[nums.length];
+    	
+    	for(int i = 0; i < k; i++) {
+    		nums_new[i] = nums[i+n-k+1];
+        	}
+    	for(int i = k; i>k-1 & i<nums.length ; i++) {
+    		nums_new[i] = nums[i-k];
+        	}
+    	return nums_new;
+    }
+/*	
+    public void rotate(int[] nums, int k) {
+    	int n = nums.length - 1;
+    	int nums_new[] = new int[nums.length];
+    	
+    	for(int i = 0; i < k; i++) {
+    		nums_new[i] = nums[i+n-k+1];
+        	}
+    	for(int i = k; i>k-1 & i<nums.length ; i++) {
+    		nums_new[i] = nums[i-k];
+        	}
+    	System.out.println(Arrays.toString(nums_new));
+    }
+*/    
+    
+    
+    public static void main(String[] args) {
+		System.out.println("This is my MySolution2.");
+		MySolution2 obj = new MySolution2();
+		int[] nums = {1,2,3,4,5,6,7};
+		int k = 3;
+		System.out.println(Arrays.toString(obj.rotate(nums,k)));
+		
+		MySolution2 obj1 = new MySolution2();
+		int[] nums1 = {5,1,8,3,2,1,9,1,0};
+		k = 4;
+		System.out.println(Arrays.toString(obj1.rotate(nums1,k)));
+    }
+
+
+}
+
+//Output:
+//This is my MySolution2.
+//[5, 6, 7, 1, 2, 3, 4]
+//[1, 9, 1, 0, 5, 1, 8, 3, 2]
+
+
