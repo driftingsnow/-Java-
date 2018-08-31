@@ -1,34 +1,47 @@
-//目的：消除相同的数字，得出新数组
-//reference: https://stackoverflow.com/questions/22352934/remove-duplicates-from-an-array-in-java
-//Solution0
+//目的：消除相同的数字，得出新数组的长度
+//自己的solution，没用什么快慢指针，不会快慢指针
 
 package leetcode;
 
-import java.util.Arrays;
-import java.util.HashSet;
-import java.util.Set;
 
-public class Solution0 {
-	public int[] onlyUniqueElements(final int[] inputArray)
-	{
-	    final Set<Integer> set = new HashSet<>();
-	    final int[] tmp = new int[inputArray.length];
-	    int index = 0;
-	    for (final int i: inputArray)
-	        if (set.add(i))
-	            tmp[index++] = i;
+public class MySolution0 {
+	public int removeDuplicates(int[] nums) {
+        if(nums==null||nums.length==0){
+            return 0;
+        }
+        int j = 1; //新数组的长度
+        for(int i=0;i<nums.length - 1;i++){  //注意nums.length要-1,否则会出错，例如{1,1,2} i只用到1，应该是i<2
+            if(nums[i]!=nums[i+1]){
+            	nums[i] = nums[i+1];
+            	j++;
+            }
+        }
+        return j;//新数组的长度
+        
+    }
 
-	    return Arrays.copyOfRange(tmp, 0, index);
-	}
 	
 	public static void main(String[] args) {
-		Solution0 obj = new Solution0();
-		final int[] inputArray = {0,0,1,1,1,2,2,3,3,4};
-		System.out.println(Arrays.toString(obj.onlyUniqueElements(inputArray)));
+		System.out.println("This is my MySolution0.");
+		MySolution0 obj = new MySolution0();
+		
+		int[] nums = {0,0,1,1,1,2,2,3,3,4,3};
+		System.out.println();
+		System.out.println(obj.removeDuplicates(nums));
+
+		int[] nums1 = {1,1,2};
+		System.out.println(obj.removeDuplicates(nums1));
+		
+		int[] nums2 = {1,1,2,1};
+		System.out.println(obj.removeDuplicates(nums2));
+		
+		
+		
 	}
 	
 }
-//Output: [0, 1, 2, 3, 4]
 
+
+	
 
 	
