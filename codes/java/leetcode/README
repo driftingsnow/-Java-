@@ -1,6 +1,7 @@
 **数组**
-Mysolution0: 从排序数组中删除重复项；
+Mysolution0: 从排序数组中删除重复项(Pass)；
 MySolution0_1.java: 从排序数组中删除重复项 使用org.apache.commons.lang3.ArrayUtils 外部jar包；
-Mysolution1: 买卖股票的最佳时机 II；
-Mysolution2: 旋转数组（？1）;
-Mysolution3: 存在重复;
+Mysolution1: 买卖股票的最佳时机 II(Pass)；
+Mysolution2: 旋转数组(failure: leetcode和eclipse结果不同);
+Mysolution3: 存在重复(failure: 超时);
+Mysolution4: 只出现一次的数字(Pass);
