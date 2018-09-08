@@ -6,3 +6,4 @@
 (failure) Mysolution3: 存在重复(超时);
 (Pass)    Mysolution3_1: 存在重复;
 (Pass)    Mysolution4: 只出现一次的数字;
+(failure) Mysolution5: 用了hashset，eclipse上可以，leetcode上通不过；
