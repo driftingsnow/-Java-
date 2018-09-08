@@ -7,18 +7,15 @@ import java.util.Arrays;
 public class MySolution3_1 {
 	public boolean containsDuplicate(int[] nums) {
     	boolean result;
-    	int j=0;
-    	int i=j+1;
-		result = false;
-		int res;
+        result = false;
         Arrays.sort(nums);
-    	for(i=0; i < nums.length-1; i++) {
-    			if(nums[i] == nums[i+1]) {
-    				result = true;
-    			}
+    	for(int i=0; i < nums.length-1; i++) {
+    		if(nums[i] == nums[i+1]) {
+    			result = true;
+    		}
     	}
 		return result;
-    } 
+    }  
 	    
 	    
 	    
@@ -29,8 +26,8 @@ public class MySolution3_1 {
 			MySolution3_1 obj = new MySolution3_1();
 			int[] nums0 = {1,2,2222,1,12,2,2,1};//true
 			int[] nums1 = {1,9,2,4,0,100,33,77,99};//false
-			int[] nums2 = {1,1,1,1,1,1,1,1,1,1};//true
-			int[] nums3 = {1,1,1,3,1,1,1,1,1,1};//true
+			int[] nums2 = {1,1,1,1};//true
+			int[] nums3 = {1,1,1,3};//true
 			int[] nums4 = {9,7,4,5,2,1,3,0};//false
 			
 			System.out.println(obj.containsDuplicate(nums0));
