@@ -1,5 +1,6 @@
 //存在重复(给定一个整数数组，判断是否存在重复元素)。
 //用Arrays.sort(nums)给数组排序，然后只要比较相邻的元素是否相等就可以了，只需要一个for循环
+//似乎不能直接 boolean result = false;
 package leetcode;
 
 import java.util.Arrays;
