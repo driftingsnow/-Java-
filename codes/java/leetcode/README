@@ -9,3 +9,5 @@
 (Pass)    Mysolution4:        只出现一次的数字;
 (failure) Mysolution5:        用了hashset，eclipse上可以，leetcode上通不过；
 (failure) Mysolution6:        eclipse上可以，leetcode上通不过，不知道是不是因为用了import java.util.Arrays;
+(failure) Mysolution7:        自己的代码，有错误；
+(Pass)    Mysolution7_1:      别人的代码；
