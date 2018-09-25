@@ -12,3 +12,4 @@
 (failure) Mysolution7:        自己的代码，有错误；
 (Pass)    Mysolution7_1:      别人的代码；
 (failure) Mysolution8:        两数之和（eclipse Pass,leetcode Failure。好像是Arraylist的问题）；
+(Pass)    Mysolution8_1:      两数之和，居然凭自己真本事通过了，好像是第一次23333，就是Arraylist再转int[]；
