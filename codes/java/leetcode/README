@@ -13,3 +13,5 @@
 (Pass)    Mysolution7_1:      别人的代码；
 (failure) Mysolution8:        两数之和（eclipse Pass,leetcode Failure。好像是Arraylist的问题）；
 (Pass)    Mysolution8_1:      两数之和，居然凭自己真本事通过了，好像是第一次23333，就是Arraylist再转int[]；
+(Pass)    Mysolution9_1:      有效的数独，抄的网上的；
+(Pass)    Mysolution9_2:      有效的数独，默写网上的code过程中，九格那里我自己又想出来方法了，网上那个余数除法有点难懂；
