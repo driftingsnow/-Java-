@@ -15,3 +15,6 @@
 (Pass)    Mysolution8_1:      两数之和，居然凭自己真本事通过了，好像是第一次23333，就是Arraylist再转int[]；
 (Pass)    Mysolution9_1:      有效的数独，抄的网上的；
 (Pass)    Mysolution9_2:      有效的数独，默写网上的code过程中，九格那里我自己又想出来方法了，网上那个余数除法有点难懂；
+
+**字符串**
+(Pass)    String_01:          反转字符串，自己的代码；
