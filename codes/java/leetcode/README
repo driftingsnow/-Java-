@@ -18,3 +18,4 @@
 
 **字符串**
 (Pass)    String_01:          反转字符串，自己的代码；
+(failure) String_02_1:        颠倒整数，数字超出int范围不知道怎么弄，exception也不会；
